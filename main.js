@@ -93,8 +93,17 @@ posts.forEach((item, index, array) => {
             </div>            
         </div>`
     ;
-
+    
     post.innerHTML += contenuto;
+
+
+    if(item.author.image == null) {
+        console.log("LUCA TI HO TROVATO!",index);
+        let imgSelect = document.getElementsByClassName("post-meta__icon")[index];
+        
+        console.log(imgSelect);
+    }
+
 });
 
 // calcolo la differenza di anni tra il post e la data odierna
