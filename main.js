@@ -81,13 +81,13 @@ posts.forEach((item, index, array) => {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="${item.id}" onclick="likeClick(${item.id})">
+                        <a class="like-button  js-like-button" href="#" data-postid="${item.id}" onclick="likeClick(${item.id}, ${item.likes})">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${item.likes}</b> persone
+                        Piace a <b id="like-counter-${item.id}" class="js-likes-counter">${item.likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -109,17 +109,31 @@ function timeCalc(pubblicationDate) {
 }
 
 // coloro il mi piace al click
-function likeClick(id) {
+function likeClick(id, likesCounter) {
     let click = `[data-postid="${id}"]`;
     let like = document.querySelector(click);
+
+    // prendo i like dalla pagina
+    let numLikes = document.getElementById(`like-counter-${id}`).innerHTML;
     
     // verifico se il like è già stato cliccato
     if(!like.classList.contains("like-button--liked")){
+        // aggiungo il colore
         like.classList.add("like-button--liked");
+        
+        // converto il like in numero
+        numLikes = parseInt(numLikes) + 1;
+        // stampo il like incrementato
+        document.getElementById(`like-counter-${id}`).innerHTML = numLikes;
+
     } else {
         like.classList.remove("like-button--liked");
+
+        // converto il like in numero
+        numLikes = parseInt(numLikes) - 1;
+        // stampo il like decrementato
+        document.getElementById(`like-counter-${id}`).innerHTML = numLikes;
     }
 
 
-    console.log("Hai cliccato!", id, click);
 }
