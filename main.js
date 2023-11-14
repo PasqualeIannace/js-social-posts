@@ -81,7 +81,7 @@ posts.forEach((item, index, array) => {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="${item.id}">
+                        <a class="like-button  js-like-button" href="#" data-postid="${item.id}" onclick="likeClick(${item.id})">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -97,7 +97,7 @@ posts.forEach((item, index, array) => {
     post.innerHTML += contenuto;
 });
 
-
+// calcolo la differenza di anni tra il post e la data odierna
 function timeCalc(pubblicationDate) {
     let d = new Date();
     d = d.getFullYear();
@@ -106,4 +106,20 @@ function timeCalc(pubblicationDate) {
     d -= anno;
 
     return `${d} anni fa`;
+}
+
+// coloro il mi piace al click
+function likeClick(id) {
+    let click = `[data-postid="${id}"]`;
+    let like = document.querySelector(click);
+    
+    // verifico se il like è già stato cliccato
+    if(!like.classList.contains("like-button--liked")){
+        like.classList.add("like-button--liked");
+    } else {
+        like.classList.remove("like-button--liked");
+    }
+
+
+    console.log("Hai cliccato!", id, click);
 }
